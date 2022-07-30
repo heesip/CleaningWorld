@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,12 +12,17 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
     }
+
     private void OnDestroy()
     {
         Instance = null;
     }
-    //씬로드
 
+    //씬로드
+    public void LoadScene(string sceneName, LoadSceneMode loadSceneMode)
+    {
+        SceneLoadSystem.LoadScene(sceneName, loadSceneMode);
+    }
 
     //오브젝트 풀(팩토리)
 
