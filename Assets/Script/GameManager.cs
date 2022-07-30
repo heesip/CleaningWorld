@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        LoadScene("Main", LoadSceneMode.Additive);
     }
 
     private void OnDestroy()
