@@ -1,11 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-   //½Ì±ÛÅÏ
-   //¾À·Îµå
-   //¿ÀºêÁ§Æ® Ç®(ÆÑÅä¸®)
+   //ì‹±ê¸€í„´
+   //ì”¬ë¡œë“œ
+   //ì˜¤ë¸Œì íŠ¸ í’€(íŒ©í† ë¦¬)
    
 }
