@@ -10,7 +10,12 @@ public static class SceneLoadSystem
 
     private static void OnLoadedScene(Scene scene, LoadSceneMode loadSceneMode)
     {
+        //씬로드 이벤트 실행 시점은 Awake보다 느림 최소 start에서 실행
         SceneManager.sceneLoaded -= OnLoadedScene;
+
+        //열어준 씬에 포커스를 잡아줌
+        SceneManager.SetActiveScene(scene);
+
         //로드 완료시 진행
         isAbleToLoadScene = true;
     }

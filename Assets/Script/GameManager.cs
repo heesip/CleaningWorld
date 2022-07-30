@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
         LoadScene("Main", LoadSceneMode.Additive);
     }
 
