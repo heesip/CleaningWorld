@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    //싱글턴
-    public static GameManager Instance;
     [SerializeField] FactoryManager factoryManager;
     [SerializeField] UIManager uiManager;
 
     private void Awake()
     {
-        Instance = this;
         factoryManager.Initalize();
         uiManager.Initialize();
     }
@@ -20,11 +17,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         LoadScene("Main", LoadSceneMode.Additive);
-    }
-
-    private void OnDestroy()
-    {
-        Instance = null;
     }
 
     //씬로드
