@@ -7,10 +7,11 @@ public class GameManager : MonoBehaviour
 {
     //싱글턴
     public static GameManager Instance;
-
+    [SerializeField] FactoryManager factoryManager;
     private void Awake()
     {
         Instance = this;
+        factoryManager.Initalize();
     }
 
     private void Start()
