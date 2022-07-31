@@ -8,10 +8,13 @@ public class GameManager : MonoBehaviour
     //싱글턴
     public static GameManager Instance;
     [SerializeField] FactoryManager factoryManager;
+    [SerializeField] UIManager uiManager;
+
     private void Awake()
     {
         Instance = this;
         factoryManager.Initalize();
+        uiManager.Initialize();
     }
 
     private void Start()
