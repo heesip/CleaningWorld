@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class CinemachineController : MonoBehaviour
 {
-    
+    [SerializeField] Transform playerFollower;
 
-   
+    void Start()
+    {
+        playerFollower.SetParent(Player.Instance.transform);
+    }
 }
