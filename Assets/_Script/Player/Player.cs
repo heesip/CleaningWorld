@@ -1,18 +1,17 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] PlayerMoveSystem playerMoveSystem = new PlayerMoveSystem();
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        playerMoveSystem.Initalize(this);
+    }
+    private void FixedUpdate()
+    {
+        playerMoveSystem.Move();
     }
 }
