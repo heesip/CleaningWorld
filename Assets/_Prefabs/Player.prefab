@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 829ccd44d72872543b9b972e6e5c8744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMoveSystem:
+    speed: 5
+    lerpValue: 0.25
 --- !u!1001 &5898337324983345279
 PrefabInstance:
   m_ObjectHideFlags: 0
