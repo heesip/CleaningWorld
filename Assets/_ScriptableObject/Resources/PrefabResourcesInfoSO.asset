@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e800404a6ca47c74795952e99823b847, type: 3}
+  m_Name: PrefabResourcesInfoSO
+  m_EditorClassIdentifier: 
+  canPrefab1: {fileID: -7311024226738423982, guid: 3b1a1b3db3b99844592f8e9bef8dbdb9, type: 3}
+  canPrefab2: {fileID: 8390789682161360247, guid: c4834d64fce83cf4b90c22e674b3b5b7, type: 3}
+  foodPrefab1: {fileID: 7191395524169836720, guid: 82f82c138a439b249a57d5bb185388f8, type: 3}
+  foodPrefab2: {fileID: -277575653891364328, guid: 3903bf88cea23404f9a2bd55eacc9efa, type: 3}
+  glassPrefab1: {fileID: 1030369980591972333, guid: 9a30722b30b7d964ca012c37a0977639, type: 3}
+  glassPrefab2: {fileID: 1198510599954446398, guid: b5515be29477e3f4eb63abd70722ebc6, type: 3}
+  paperPrefab1: {fileID: -8104875557491719720, guid: a0ff3533a3b97f5489250184df716efd, type: 3}
+  paperPrefab2: {fileID: 1192954393580050897, guid: 1338955b0e6ec3f49b1ccdb704bfdab1, type: 3}
+  plasticPrefab1: {fileID: 8522243922694153401, guid: b07c9e47d93fddc499ea2212d4cf63da, type: 3}
+  plasticPrefab2: {fileID: -7118952658411100406, guid: 6dd2be2c7b430e84eb7cdc81478b865f, type: 3}
