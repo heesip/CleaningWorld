@@ -41,7 +41,7 @@ public class PrefabResourcesInfoSO : ScriptableObject
             case GarbageType.Plastic2:
                 return plasticPrefab2;
             default:
-                Debug.Log($"PrefabeResourcesInfoSO : 이게 호출되면 안됨!, garbageType = {garbageType}")
+                Debug.Log($"PrefabeResourcesInfoSO : 이게 호출되면 안됨!, garbageType = {garbageType}");
                 return null;
         }
     }
