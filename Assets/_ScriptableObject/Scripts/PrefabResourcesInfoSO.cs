@@ -16,5 +16,33 @@ public class PrefabResourcesInfoSO : ScriptableObject
     [SerializeField] GarbageObject plasticPrefab1;
     [SerializeField] GarbageObject plasticPrefab2;
 
-
+    public GarbageObject GetGarbageObjectPrefab(GarbageType garbageType)
+    {
+        switch (garbageType)
+        {
+            case GarbageType.Can1:
+                return canPrefab1;
+            case GarbageType.Can2:
+                return canPrefab2;
+            case GarbageType.Food1:
+                return foodPrefab1;
+            case GarbageType.Food2:
+                return foodPrefab2;
+            case GarbageType.Glass1:
+                return glassPrefab1;
+            case GarbageType.Glass2:
+                return glassPrefab2;
+            case GarbageType.Paper1:
+                return paperPrefab1;
+            case GarbageType.Paper2:
+                return paperPrefab2;
+            case GarbageType.Plastic1:
+                return plasticPrefab1;
+            case GarbageType.Plastic2:
+                return plasticPrefab2;
+            default:
+                Debug.Log($"PrefabeResourcesInfoSO : 이게 호출되면 안됨!, garbageType = {garbageType}")
+                return null;
+        }
+    }
 }

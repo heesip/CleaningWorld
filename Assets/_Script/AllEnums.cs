@@ -11,9 +11,9 @@
     Glass1,
     Glass2,
 
-    Plastic1,
-    Plastic2,
-
     Paper1,
-    Paper2
+    Paper2,
+
+    Plastic1,
+    Plastic2
 }
