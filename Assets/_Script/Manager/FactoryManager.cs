@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FactoryManager : Singleton<FactoryManager>
 {
-    public void Initalize()
+    public void Initialize()
     {
 
     }

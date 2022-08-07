@@ -5,13 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] FactoryManager factoryManager;
-    [SerializeField] UIManager uiManager;
+    //[SerializeField] FactoryManager factoryManager;
+    //[SerializeField] UIManager uiManager;
 
     private void Awake()
     {
-        factoryManager.Initalize();
-        uiManager.Initialize();
+        GameResourcesManager.Instance.Initialize();
+        FactoryManager.Instance.Initialize();
+        UIManager.Instance.Initialize();
     }
 
     private void Start()
