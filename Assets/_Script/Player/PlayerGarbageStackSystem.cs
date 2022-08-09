@@ -40,7 +40,7 @@ public class PlayerGarbageStackSystem
     MyStack<GarbageObject> myGarbages = new MyStack<GarbageObject>();
 
     [SerializeField] Transform pivotCenter;
-    [SerializeField] float garbageGap = 2.5f;
+    [SerializeField] float garbageGap = 0.5f;
 
     public void Initialize(Player player)
     {

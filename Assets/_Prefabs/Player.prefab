@@ -53,7 +53,7 @@ MonoBehaviour:
     lerpValue: 0.25
   playerGarbageStackSystem:
     pivotCenter: {fileID: 1428601914949198172}
-    garbageGap: 2.5
+    garbageGap: 0.5
 --- !u!195 &5275608021350165514
 NavMeshAgent:
   m_ObjectHideFlags: 0
