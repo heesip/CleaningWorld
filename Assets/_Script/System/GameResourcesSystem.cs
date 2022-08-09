@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameResourcesSystem : MonoBehaviour
+public class GameResourcesSystem
 {
     PrefabResourcesInfoSO prefabResourcesInfoSO;
 

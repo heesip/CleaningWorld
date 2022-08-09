@@ -10,6 +10,7 @@ public abstract class PlayerDetector : MonoBehaviour
     private void Start()
     {
         Debug.Assert(mainCollider != null, $"mainCollider is null", transform);
+        OnStart();
     }
 
     protected virtual void OnStart() { }
