@@ -12,6 +12,8 @@ public abstract class PlayerDetector : MonoBehaviour
         Debug.Assert(mainCollider != null, $"mainCollider is null", transform);
     }
 
+    protected virtual void OnStart() { }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag(AllTagAndLayer.Player) == false)
