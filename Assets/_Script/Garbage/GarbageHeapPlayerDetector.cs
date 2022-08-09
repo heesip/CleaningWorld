@@ -14,14 +14,17 @@ public class GarbageHeapPlayerDetector : PlayerDetector
         garbageTypesMaxNumber = garbageTypes.Length;
     }
 
-    protected override void _onTriggerEnter()
+    protected override void _onTriggerEnter(Collider other)
     {
         GarbageType randomType = (GarbageType)Random.Range(1, garbageTypesMaxNumber);
 
-        FactoryManager.Instance.GetGarbageObject(randomType, transform.position);
+        var randomGarbage = FactoryManager.Instance.GetGarbageObject(randomType,
+                                                                     transform.position);
+
+        other.GetComponent<Player>().OnGarbageHeap(randomGarbage);
     }
     
 
-    protected override void _onTriggerExit() { }
+    protected override void _onTriggerExit(Collider other) { }
 
 }

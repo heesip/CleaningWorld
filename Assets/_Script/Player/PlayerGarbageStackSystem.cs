@@ -50,9 +50,9 @@ public class PlayerGarbageStackSystem
 
     public void OnGarbageHeap(GarbageObject garbageObject)
     {
-        garbageObject.transform.SetParent(player.transform);
-        garbageObject.transform.localPosition = pivotCenter.position
-                                                + (myGarbages.Count() * garbageGap * Vector3.one);
+        garbageObject.transform.SetParent(pivotCenter);
+        garbageObject.transform.position = pivotCenter.position
+                                                + (myGarbages.Count() * garbageGap * Vector3.up);
 
 
         myGarbages.Push(garbageObject);

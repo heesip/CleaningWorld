@@ -21,7 +21,7 @@ public abstract class PlayerDetector : MonoBehaviour
         {
             return; 
         }
-        _onTriggerEnter();
+        _onTriggerEnter(other);
     }
 
 
@@ -31,11 +31,11 @@ public abstract class PlayerDetector : MonoBehaviour
         {
             return;
         }
-        _onTriggerExit();
+        _onTriggerExit(other);
     }
 
-    protected abstract void _onTriggerEnter();
+    protected abstract void _onTriggerEnter(Collider other);
 
-    protected abstract void _onTriggerExit();
+    protected abstract void _onTriggerExit(Collider other);
     
 }
