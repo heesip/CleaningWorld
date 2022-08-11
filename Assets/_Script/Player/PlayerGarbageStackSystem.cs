@@ -49,14 +49,23 @@ public class PlayerGarbageStackSystem
     GarbageStack<GarbageObject> myGarbages = new GarbageStack<GarbageObject>();
 
     [SerializeField] Transform pivotCenter;
+    [SerializeField] int maxCount = 20;
     [SerializeField] float garbageGapUp = 0.5f;
     [SerializeField] float garbageGapBack = 0.75f;
     [SerializeField] int orderCount = 3;
+
+
     public void Initialize(Player player)
     {
         this.player = player;
         Debug.Assert(pivotCenter != null, "pivotCenter is null");
     }
+
+    public bool IsAbleToGetGarbage()
+    {
+        return myGarbages.Count() < maxCount;
+    }
+
 
     public void OnGarbageHeap(GarbageObject garbageObject)
     {
