@@ -23,8 +23,8 @@ public class Player : Singleton<Player>
         return playerGarbageStackSystem.IsAbleToGetGarbage();
     }
 
-    public void OnGarbageHeap(GarbageObject garbageObject)
+    public void OnGarbageHeap(GarbageObject garbageObject, float delay)
     {
-        playerGarbageStackSystem.OnGarbageHeap(garbageObject);
+        playerGarbageStackSystem.OnGarbageHeap(garbageObject, delay);
     }
 }

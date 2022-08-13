@@ -15,14 +15,14 @@ class GarbageStack<T> where T : GarbageObject
         return container.Count;
     }
 
-    public void Push(T item, Func<int, Vector3> getPosition)
+    public void Push(T item, Func<int, Vector3> getPosition, float delay)
     {
         for (int i = 0; i < container.Count; i++)
         {
             container[i].transform.localPosition = getPosition(i);
         }
 
-        item.transform.DOLocalMove(getPosition(container.Count), 0.5f);
+        item.transform.DOLocalMove(getPosition(container.Count), delay);
 
         container.Add(item);
     }
@@ -67,17 +67,17 @@ public class PlayerGarbageStackSystem
     }
 
 
-    public void OnGarbageHeap(GarbageObject garbageObject)
+    public void OnGarbageHeap(GarbageObject garbageObject, float delay)
     {
         garbageObject.transform.SetParent(pivotCenter);
         garbageObject.transform.localRotation = Quaternion.identity;
 
-        myGarbages.Push(garbageObject, GetPosition);
+        myGarbages.Push(garbageObject, GetPosition, delay);
 
 
         Vector3 GetPosition(int index)
         {
-            return Vector3.zero 
+            return Vector3.zero
                 + ((index % orderCount) * garbageGapUp * Vector3.up)
                 + ((index / orderCount) * garbageGapBack * Vector3.back);
         }

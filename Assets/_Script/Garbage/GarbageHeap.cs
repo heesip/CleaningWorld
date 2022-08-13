@@ -59,7 +59,7 @@ public class GarbageHeap : MonoBehaviour
             return;
         }
 
-        Player.Instance.OnGarbageHeap(GenerateGarbage());
+        Player.Instance.OnGarbageHeap(GenerateGarbage(), delay);
     }
 
     GarbageObject GenerateGarbage()
