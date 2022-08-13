@@ -8,7 +8,11 @@ public class GarbageHeap : MonoBehaviour
 {
     int garbageTypesMaxNumber;
     [SerializeField] GarbageHeapPlayerDetector garbageHeapPlayerDetector;
-    [SerializeField] float delay = 0.5f;
+    [SerializeField] float delay = 0.1f;
+    [SerializeField] int garbageCount = 100;
+    int originGarbageCount;
+    Vector3 originScale;
+
 
     void Start()
     {
@@ -19,6 +23,9 @@ public class GarbageHeap : MonoBehaviour
         garbageTypesMaxNumber = garbageTypes.Length;
 
         garbageHeapPlayerDetector.Initialize(OnPlayerEnter, OnPlayerExit);
+
+        originGarbageCount = garbageCount;
+        originScale = transform.localScale;
     }
 
     void OnPlayerEnter()
@@ -68,8 +75,16 @@ public class GarbageHeap : MonoBehaviour
 
         var randomGarbage = FactoryManager.Instance.GetGarbageObject(randomeType,
                                                                      transform.position);
+        OnGenerateGarbage();
 
         return randomGarbage;
+
+        void OnGenerateGarbage()
+        {
+            garbageCount--;
+            transform.localScale = garbageCount / (float)originGarbageCount * originScale;
+        }
     }
+
 }
 

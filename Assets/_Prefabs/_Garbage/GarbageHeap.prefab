@@ -450,7 +450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   garbageHeapPlayerDetector: {fileID: 8559758034430050719}
-  delay: 0.5
+  delay: 0.1
 --- !u!1 &2241394687664301453
 GameObject:
   m_ObjectHideFlags: 0
