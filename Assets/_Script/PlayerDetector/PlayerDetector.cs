@@ -13,7 +13,7 @@ public abstract class PlayerDetector : MonoBehaviour
         OnStart();
     }
 
-    protected virtual void OnStart() { }
+    protected virtual void OnStart() { }    
 
     private void OnTriggerEnter(Collider other)
     {
