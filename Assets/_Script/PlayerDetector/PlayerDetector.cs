@@ -9,6 +9,7 @@ public abstract class PlayerDetector : MonoBehaviour
 
     private void Start()
     {
+        WoonyMethods.Assert(this, (mainCollider, nameof(mainCollider)));
         Debug.Assert(mainCollider != null, $"mainCollider is null", transform);
         OnStart();
     }

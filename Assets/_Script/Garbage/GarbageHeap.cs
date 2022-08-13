@@ -16,8 +16,7 @@ public class GarbageHeap : MonoBehaviour
 
     void Start()
     {
-        Debug.Assert(garbageHeapPlayerDetector != null,
-                        "garbageHeapPlayerDetector is null");
+        WoonyMethods.Assert(this, (garbageHeapPlayerDetector, nameof(garbageHeapPlayerDetector)));
 
         var garbageTypes = Enum.GetNames(typeof(GarbageType));
         garbageTypesMaxNumber = garbageTypes.Length;
