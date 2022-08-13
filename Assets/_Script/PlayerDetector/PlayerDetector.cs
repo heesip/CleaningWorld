@@ -21,7 +21,7 @@ public abstract class PlayerDetector : MonoBehaviour
         {
             return; 
         }
-        _onTriggerEnter(other);
+        _onTriggerEnter(other); 
     }
 
 
