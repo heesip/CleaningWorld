@@ -21,49 +21,49 @@ public class PrefabFactorySystem
     public void Initialize(Transform factoryManager)
     {
         this.factoryManager = factoryManager;
-        InutalizeIiObjectPool(ref can1ObjectPool, GarbageType.Can1);
-        InutalizeIiObjectPool(ref can2ObjectPool, GarbageType.Can2);
-        InutalizeIiObjectPool(ref food1ObjectPool, GarbageType.Food1);
-        InutalizeIiObjectPool(ref food2ObjectPool, GarbageType.Food2);
-        InutalizeIiObjectPool(ref glass1ObjectPool, GarbageType.Glass1);
-        InutalizeIiObjectPool(ref glass2ObjectPool, GarbageType.Glass2);
-        InutalizeIiObjectPool(ref paper1ObjectPool, GarbageType.Paper1);
-        InutalizeIiObjectPool(ref paper2ObjectPool, GarbageType.Paper2);
-        InutalizeIiObjectPool(ref plastic1ObjectPool, GarbageType.Plastic1);
-        InutalizeIiObjectPool(ref plastic2ObjectPool, GarbageType.Plastic2);
+        InitializeIiObjectPool(ref can1ObjectPool, GarbageDetailType.Can1);
+        InitializeIiObjectPool(ref can2ObjectPool, GarbageDetailType.Can2);
+        InitializeIiObjectPool(ref food1ObjectPool, GarbageDetailType.Food1);
+        InitializeIiObjectPool(ref food2ObjectPool, GarbageDetailType.Food2);
+        InitializeIiObjectPool(ref glass1ObjectPool, GarbageDetailType.Glass1);
+        InitializeIiObjectPool(ref glass2ObjectPool, GarbageDetailType.Glass2);
+        InitializeIiObjectPool(ref paper1ObjectPool, GarbageDetailType.Paper1);
+        InitializeIiObjectPool(ref paper2ObjectPool, GarbageDetailType.Paper2);
+        InitializeIiObjectPool(ref plastic1ObjectPool, GarbageDetailType.Plastic1);
+        InitializeIiObjectPool(ref plastic2ObjectPool, GarbageDetailType.Plastic2);
     }
 
-    void InutalizeIiObjectPool(ref ObjectPoolSystem objectPool, GarbageType garbageType)
+    void InitializeIiObjectPool(ref ObjectPoolSystem objectPool, GarbageDetailType garbageDetailType)
     {
-        objectPool = new ObjectPoolSystem(GetGarbageObjectPrefab(garbageType),
+        objectPool = new ObjectPoolSystem(GetGarbageObjectPrefab(garbageDetailType),
                                           defaultPoolSize: 1,
                                           parent: factoryManager);
     }
 
-    GarbageObject GetGarbageObjectPrefab(GarbageType garbageType)
+    GarbageObject GetGarbageObjectPrefab(GarbageDetailType garbageDetailType)
     {
-        return GameResourcesManager.Instance.GetGarbageObjectPrefab(garbageType);
+        return GameResourcesManager.Instance.GetGarbageObjectPrefab(garbageDetailType);
     }
 
-    ObjectPoolSystem GetObjectPoolSystem(GarbageType garbageType)
+    ObjectPoolSystem GetObjectPoolSystem(GarbageDetailType garbageType)
     {
         return garbageType switch
         {
-            GarbageType.Can1 => can1ObjectPool,
-            GarbageType.Can2 => can2ObjectPool,
-            GarbageType.Food1 => food1ObjectPool,
-            GarbageType.Food2 => food2ObjectPool,
-            GarbageType.Glass1 => glass1ObjectPool,
-            GarbageType.Glass2 => glass2ObjectPool,
-            GarbageType.Paper1 => paper1ObjectPool,
-            GarbageType.Paper2 => paper2ObjectPool,
-            GarbageType.Plastic1 => plastic1ObjectPool,
-            GarbageType.Plastic2 => plastic2ObjectPool,
+            GarbageDetailType.Can1 => can1ObjectPool,
+            GarbageDetailType.Can2 => can2ObjectPool,
+            GarbageDetailType.Food1 => food1ObjectPool,
+            GarbageDetailType.Food2 => food2ObjectPool,
+            GarbageDetailType.Glass1 => glass1ObjectPool,
+            GarbageDetailType.Glass2 => glass2ObjectPool,
+            GarbageDetailType.Paper1 => paper1ObjectPool,
+            GarbageDetailType.Paper2 => paper2ObjectPool,
+            GarbageDetailType.Plastic1 => plastic1ObjectPool,
+            GarbageDetailType.Plastic2 => plastic2ObjectPool,
             _ => null,
         };
     }
 
-    public GarbageObject GetGarbageObject(GarbageType garbageType, Vector3 spawnPoint)
+    public GarbageObject GetGarbageObject(GarbageDetailType garbageType, Vector3 spawnPoint)
     {
         tempGarbageObject = GetObjectPoolSystem(garbageType).Get() as GarbageObject;
         tempGarbageObject.transform.position = spawnPoint;

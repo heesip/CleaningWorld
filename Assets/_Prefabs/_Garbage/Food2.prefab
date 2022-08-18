@@ -125,4 +125,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54012077ede66c948acee48a64b74924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  garbageType: 4
+  garbageDetailType: 4

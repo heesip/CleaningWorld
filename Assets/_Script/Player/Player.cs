@@ -9,7 +9,7 @@ public class Player : Singleton<Player>
 
     private void Start()
     {
-        playerMoveSystem.Initalize(this);
+        playerMoveSystem.Initialize(this);
         playerGarbageStackSystem.Initialize(this);
     }
 

@@ -10,4 +10,8 @@ public class UIManager : Singleton<UIManager>
 
     public void Initialize() { }
 
+    public void UpdateGarbageAmount(GarbageType garbageType, int value)
+    {
+        GarbageUI.Instance.UpdateAmount(garbageType, value);
+    }
 }

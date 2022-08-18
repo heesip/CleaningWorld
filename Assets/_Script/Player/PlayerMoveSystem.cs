@@ -13,7 +13,7 @@ public class PlayerMoveSystem
     Vector3 direction;
     Vector3 moveResult;
 
-    public void Initalize(Player player)
+    public void Initialize(Player player)
     {
         this.player = player;
         joystick = UIManager.Instance.Joystick;
@@ -21,7 +21,6 @@ public class PlayerMoveSystem
 
     public void Move()
     {
-        //얼리리턴 방식
         if (joystick.IsDrag == false)
         {
             return;

@@ -76,7 +76,7 @@ public class GarbageHeap : MonoBehaviour
 
     GarbageObject GenerateGarbage()
     {
-        GarbageType randomeType = (GarbageType)Random.Range(1, garbageTypesMaxNumber);
+        GarbageDetailType randomeType = (GarbageDetailType)Random.Range(1, garbageTypesMaxNumber);
 
         var randomGarbage = FactoryManager.Instance.GetGarbageObject(randomeType,
                                                                      transform.position);
