@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class GarbageHeap : MonoBehaviour
 {
-    int garbageTypesMaxNumber;
+    int garbageDetailTypesMaxNumber;
     [SerializeField] GarbageHeapPlayerDetector garbageHeapPlayerDetector;
     [SerializeField] float delay = 0.1f;
     [SerializeField] int garbageCount = 100;
@@ -18,8 +18,8 @@ public class GarbageHeap : MonoBehaviour
     {
         WoonyMethods.Assert(this, (garbageHeapPlayerDetector, nameof(garbageHeapPlayerDetector)));
 
-        var garbageTypes = Enum.GetNames(typeof(GarbageType));
-        garbageTypesMaxNumber = garbageTypes.Length;
+        var garbageDetailTypes = Enum.GetNames(typeof(GarbageDetailType));
+        garbageDetailTypesMaxNumber = garbageDetailTypes.Length;
 
         garbageHeapPlayerDetector.Initialize(OnPlayerEnter, OnPlayerExit);
 
@@ -76,7 +76,7 @@ public class GarbageHeap : MonoBehaviour
 
     GarbageObject GenerateGarbage()
     {
-        GarbageDetailType randomeType = (GarbageDetailType)Random.Range(1, garbageTypesMaxNumber);
+        GarbageDetailType randomeType = (GarbageDetailType)Random.Range(1, garbageDetailTypesMaxNumber);
 
         var randomGarbage = FactoryManager.Instance.GetGarbageObject(randomeType,
                                                                      transform.position);
