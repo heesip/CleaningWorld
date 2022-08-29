@@ -30,7 +30,8 @@ class GarbageStack<T> where T : GarbageObject
     public (bool isContained, T garbageObject) Pop(GarbageType garbageType)
     {
         tempItem = container.FirstOrDefault(x => x.GarbageType == garbageType);
-        if (tempItem.GarbageType == GarbageType.None)
+        
+        if (tempItem == null || tempItem.GarbageType == GarbageType.None)
         {
             Debug.LogError("존재하지 않음!");
             return (false, null);
