@@ -27,10 +27,10 @@ class GarbageStack<T> where T : GarbageObject
         container.Add(item);
     }
 
-    public (bool isContained, T garbageObject) Pop(GarbageDetailType garbageDetailType)
+    public (bool isContained, T garbageObject) Pop(GarbageType garbageType)
     {
-        tempItem = container.FirstOrDefault(x => x.GarbageDetailType == garbageDetailType);
-        if (tempItem.GarbageDetailType == GarbageDetailType.None)
+        tempItem = container.FirstOrDefault(x => x.GarbageType == garbageType);
+        if (tempItem.GarbageType == GarbageType.None)
         {
             Debug.LogError("존재하지 않음!");
             return (false, null);
@@ -157,13 +157,10 @@ public class PlayerGarbageStackSystem
         }
     }
 
-    public (bool isContained, GarbageObject garbageObject) OnTrashBins(GarbageDetailType garbageDetailType)
-    {
-        return myGarbages.Pop(garbageDetailType);
-    }
+   
 
     public void OnWastebasket(GarbageType garbageType)
     {
-
+        myGarbages.Pop(garbageType);
     }
 }
