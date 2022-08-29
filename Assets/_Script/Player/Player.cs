@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,6 +22,11 @@ public class Player : Singleton<Player>
     public bool IsAbleToGetGarbage()
     {
         return playerGarbageStackSystem.IsAbleToGetGarbage();
+    }
+
+    public void OnWastebasket(GarbageType garbageType)
+    {
+        playerGarbageStackSystem.OnWastebasket(garbageType);
     }
 
     public void OnGarbageHeap(GarbageObject garbageObject, float delay)

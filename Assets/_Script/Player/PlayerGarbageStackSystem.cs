@@ -161,4 +161,9 @@ public class PlayerGarbageStackSystem
     {
         return myGarbages.Pop(garbageDetailType);
     }
+
+    public void OnWastebasket(GarbageType garbageType)
+    {
+
+    }
 }
