@@ -30,7 +30,7 @@ class GarbageStack<T> where T : GarbageObject
     public (bool isContained, T garbageObject) Pop(GarbageType garbageType)
     {
         tempItem = container.FirstOrDefault(x => x.GarbageType == garbageType);
-        
+
         if (tempItem == null || tempItem.GarbageType == GarbageType.None)
         {
             Debug.LogError("존재하지 않음!");
@@ -75,33 +75,9 @@ public class PlayerGarbageStackSystem
         Debug.Assert(pivotCenter != null, "pivotCenter is null");
     }
 
-    GarbageType GetGarbageTypeFromDetilType(GarbageDetailType garbageDetailType)
-    {
-        switch (garbageDetailType)
-        {
-            case GarbageDetailType.Can1:
-            case GarbageDetailType.Can2:
-                return GarbageType.Can;
-            case GarbageDetailType.Food1:
-            case GarbageDetailType.Food2:
-                return GarbageType.Food;
-            case GarbageDetailType.Glass1:
-            case GarbageDetailType.Glass2:
-                return GarbageType.Glass;
-            case GarbageDetailType.Paper1:
-            case GarbageDetailType.Paper2:
-                return GarbageType.Paper;
-            case GarbageDetailType.Plastic1:
-            case GarbageDetailType.Plastic2:
-                return GarbageType.Plastic;
-            default:
-                return GarbageType.None;
-        }
-    }
-
     GarbageCountInfo GetGarbageCountInfo(GarbageType garbageType)
     {
-        if(garbageCountInfoMap.ContainsKey(garbageType) == false)
+        if (garbageCountInfoMap.ContainsKey(garbageType) == false)
         {
             InitialzeGarbageCountMap(garbageType);
         }
@@ -118,22 +94,21 @@ public class PlayerGarbageStackSystem
         }
     }
 
-    void UpdateCount(GarbageDetailType garbageDetailType, int changeValue)
+    void UpdateCount(GarbageType garbageType, int changeValue)
     {
-        var garbageType = GetGarbageTypeFromDetilType(garbageDetailType);
         var garbageInfo = GetGarbageCountInfo(garbageType);
         garbageInfo.count += changeValue;
         UIManager.Instance.UpdateGarbageAmount(garbageType, garbageInfo.count);
     }
 
-    void IncreaseCount(GarbageDetailType garbageDetailType)
+    void IncreaseCount(GarbageType garbageType)
     {
-        UpdateCount(garbageDetailType, +1);
+        UpdateCount(garbageType, +1);
     }
-    
-    void DecreaseCount(GarbageDetailType garbageDetailType)
+
+    void DecreaseCount(GarbageType garbageType)
     {
-        UpdateCount(garbageDetailType, -1);
+        UpdateCount(garbageType, -1);
     }
 
     public bool IsAbleToGetGarbage()
@@ -148,8 +123,8 @@ public class PlayerGarbageStackSystem
         garbageObject.transform.localRotation = Quaternion.identity;
 
         myGarbages.Push(garbageObject, GetPosition, delay);
-        IncreaseCount(garbageDetailType: garbageObject.GarbageDetailType);
-
+        IncreaseCount(garbageType: garbageObject.GarbageType);
+        
         Vector3 GetPosition(int index)
         {
             return Vector3.zero
@@ -158,10 +133,11 @@ public class PlayerGarbageStackSystem
         }
     }
 
-   
+
 
     public void OnWastebasket(GarbageType garbageType)
     {
         myGarbages.Pop(garbageType);
+        DecreaseCount(garbageType);
     }
 }
