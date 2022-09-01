@@ -16,6 +16,10 @@ public class Wastebasket : MonoBehaviour
 
     void OnPlayerEnter() 
     {
+        if(Player.Instance.IsAbleToPopGarbage(garbageType) == false)
+        {
+            return;
+        }
         Player.Instance.OnWastebasket(garbageType);
     }
 

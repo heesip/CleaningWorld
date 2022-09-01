@@ -29,6 +29,11 @@ public class Player : Singleton<Player>
         playerGarbageStackSystem.OnWastebasket(garbageType);
     }
 
+    public bool IsAbleToPopGarbage(GarbageType garbageType)
+    {
+        return playerGarbageStackSystem.IsAbleToPopGarbage(garbageType);
+    }
+
     public void OnGarbageHeap(GarbageObject garbageObject, float delay)
     {
         playerGarbageStackSystem.OnGarbageHeap(garbageObject, delay);

@@ -9,22 +9,29 @@ class GarbageStack<T> where T : GarbageObject
 {
     readonly List<T> container = new List<T>();
     T tempItem;
+    Dictionary<GarbageType, int> containerMap = new Dictionary<GarbageType, int>();
 
     public int Count()
     {
         return container.Count;
     }
 
-    public void Push(T item, Func<int, Vector3> getPosition, float delay)
+    public void Push(T garbageObject, Func<int, Vector3> getPosition, float delay)
     {
         for (int i = 0; i < container.Count; i++)
         {
             container[i].transform.localPosition = getPosition(i);
         }
 
-        item.transform.DOLocalMove(getPosition(container.Count), delay);
+        garbageObject.transform.DOLocalMove(getPosition(container.Count), delay);
 
-        container.Add(item);
+        container.Add(garbageObject);
+
+        if (containerMap.ContainsKey(garbageObject.GarbageType) == false)
+        {
+            containerMap[garbageObject.GarbageType] = 0;
+        }
+        containerMap[garbageObject.GarbageType]++;
     }
 
     public (bool isContained, T garbageObject) Pop(GarbageType garbageType)
@@ -38,9 +45,15 @@ class GarbageStack<T> where T : GarbageObject
         }
 
         container.Remove(tempItem);
+        containerMap[tempItem.GarbageType]--;
         return (true, tempItem);
     }
 
+    public bool IsAbleToPopGarbage(GarbageType garbageType)
+    {
+        return containerMap.ContainsKey(garbageType)
+            && containerMap[garbageType] > 0;
+    }
 }
 
 [System.Serializable]
@@ -116,6 +129,10 @@ public class PlayerGarbageStackSystem
         return myGarbages.Count() < maxCount;
     }
 
+    public bool IsAbleToPopGarbage(GarbageType garbageType)
+    {
+        return myGarbages.IsAbleToPopGarbage(garbageType);
+    }
 
     public void OnGarbageHeap(GarbageObject garbageObject, float delay)
     {
@@ -124,7 +141,7 @@ public class PlayerGarbageStackSystem
 
         myGarbages.Push(garbageObject, GetPosition, delay);
         IncreaseCount(garbageType: garbageObject.GarbageType);
-        
+
         Vector3 GetPosition(int index)
         {
             return Vector3.zero
@@ -132,8 +149,6 @@ public class PlayerGarbageStackSystem
                 + ((index / orderCount) * garbageGapBack * Vector3.back);
         }
     }
-
-
 
     public void OnWastebasket(GarbageType garbageType)
     {
