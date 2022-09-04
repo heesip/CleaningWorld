@@ -104,7 +104,7 @@ public class PlayerGarbageStackSystem
         if (result.isContained)
         {
             result.garbageObject.transform.SetParent(null);
+            DecreaseCount(garbageType);
         }   
-        DecreaseCount(garbageType);
     }
 }
