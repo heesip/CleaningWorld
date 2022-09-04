@@ -24,9 +24,9 @@ public class Player : Singleton<Player>
         return playerGarbageStackSystem.IsAbleToGetGarbage();
     }
 
-    public void OnWastebasket(GarbageType garbageType)
+    public GarbageObject OnWastebasket(GarbageType garbageType)
     {
-        playerGarbageStackSystem.OnWastebasket(garbageType);
+        return playerGarbageStackSystem.OnWastebasket(garbageType);
     }
 
     public bool IsAbleToPopGarbage(GarbageType garbageType)
