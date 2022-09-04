@@ -15,13 +15,16 @@ class GarbageStack<T> where T : GarbageObject
     {
         return container.Count;
     }
-
-    public void Push(T garbageObject, Func<int, Vector3> getPosition, float delay)
+    public void Initialize(Func<int, Vector3> getPosition)
     {
-        for (int i = 0; i < container.Count; i++)
-        {
-            container[i].transform.localPosition = getPosition(i);
-        }
+        this.getPosition = getPosition;
+    }
+
+    Func<int, Vector3> getPosition;
+
+    public void Push(T garbageObject, float delay)
+    {
+        SortPosition();
 
         garbageObject.transform.DOLocalMove(getPosition(container.Count), delay);
 
@@ -32,6 +35,14 @@ class GarbageStack<T> where T : GarbageObject
             containerMap[garbageObject.GarbageType] = 0;
         }
         containerMap[garbageObject.GarbageType]++;
+    }
+
+    private void SortPosition()
+    {
+        for (int i = 0; i < container.Count; i++)
+        {
+            container[i].transform.localPosition = getPosition(i);
+        }
     }
 
     public (bool isContained, T garbageObject) Pop(GarbageType garbageType)
@@ -46,6 +57,7 @@ class GarbageStack<T> where T : GarbageObject
 
         container.Remove(tempItem);
         containerMap[tempItem.GarbageType]--;
+        SortPosition();
         return (true, tempItem);
     }
 
