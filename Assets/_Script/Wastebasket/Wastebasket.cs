@@ -5,23 +5,9 @@ using UnityEngine;
 
 public class Wastebasket : MonoBehaviour
 {
-    class LidOpenCloseInfo
-    {
-        public Vector3 rotation;
-        public float duration;
-
-        public LidOpenCloseInfo(Vector3 rotation, float duration)
-        {
-            this.rotation = rotation;
-            this.duration = duration;
-        }
-    }
-
     [SerializeField] GarbageType garbageType;
     [SerializeField] WastebasketPlayerDetector wastebasketPlayerDetector;
-    [SerializeField] Transform lid;
-    LidOpenCloseInfo lidOpen = new LidOpenCloseInfo(new Vector3(0, 105, -90), 0.2f);
-    LidOpenCloseInfo lidClose = new LidOpenCloseInfo(new Vector3(0, 0, -90), 1);
+    [SerializeField] WastebasketLidController lidController;
     [SerializeField] float delay = 0.1f;
 
     private void Start()
@@ -30,23 +16,19 @@ public class Wastebasket : MonoBehaviour
         Debug.Assert(garbageType != GarbageType.None, "타입 설정이 필요함", transform);
 
         wastebasketPlayerDetector.Initialize(OnPlayerEnter, OnPlayerExit);
+        lidController.Initialize();
     }
 
     void OnPlayerEnter()
     {
         StopThrowGarbageCo();
-       
-        lid.DOKill();
-        lid.DOLocalRotate(lidOpen.rotation, lidOpen.duration);
         throwGarbageCoHandle = StartCoroutine(ThrowGarbage());
     }
 
     void OnPlayerExit()
     {
         StopThrowGarbageCo();
-
-        lid.DOKill();
-        lid.DOLocalRotate(lidClose.rotation, lidClose.duration).SetEase(Ease.OutBounce);
+        lidController.Close();
     }
 
     private void StopThrowGarbageCo()
@@ -61,7 +43,8 @@ public class Wastebasket : MonoBehaviour
 
     IEnumerator ThrowGarbage()
     {
-        yield return new WaitForSeconds(lidOpen.duration);
+        yield return lidController.Open()
+                                  .WaitForCompletion();
         var isTrue = true;
         while (isTrue && Player.Instance.IsAbleToPopGarbage(garbageType))
         {
