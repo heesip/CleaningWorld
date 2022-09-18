@@ -7,7 +7,8 @@ public class Wastebasket : MonoBehaviour
 {
     [SerializeField] GarbageType garbageType;
     [SerializeField] WastebasketPlayerDetector wastebasketPlayerDetector;
-    float delay = 0.1f;
+    [SerializeField] float delay = 0.1f;
+
     private void Start()
     {
         WoonyMethods.Assert(this, (wastebasketPlayerDetector, nameof(wastebasketPlayerDetector)));
@@ -16,7 +17,7 @@ public class Wastebasket : MonoBehaviour
         wastebasketPlayerDetector.Initialize(OnPlayerEnter, OnPlayerExit);
     }
 
-    void OnPlayerEnter() 
+    void OnPlayerEnter()
     {
         StopThrowGarbageCo();
         throwGarbageCoHandle = StartCoroutine(ThrowGarbage());
@@ -29,7 +30,7 @@ public class Wastebasket : MonoBehaviour
 
     private void StopThrowGarbageCo()
     {
-        if(throwGarbageCoHandle != null)
+        if (throwGarbageCoHandle != null)
         {
             StopCoroutine(throwGarbageCoHandle);
         }
