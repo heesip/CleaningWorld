@@ -8,6 +8,8 @@ public class Wastebasket : MonoBehaviour
     [SerializeField] GarbageType garbageType;
     [SerializeField] WastebasketPlayerDetector wastebasketPlayerDetector;
     [SerializeField] WastebasketLidController lidController;
+    [SerializeField] Transform garbageArrivedPoint;
+    [SerializeField] float addedYValue = 2;
     [SerializeField] float delay = 0.1f;
 
     private void Start()
@@ -48,9 +50,12 @@ public class Wastebasket : MonoBehaviour
         var isTrue = true;
         while (isTrue && Player.Instance.IsAbleToPopGarbage(garbageType))
         {
-            var result = Player.Instance.OnWastebasket(garbageType);
-            yield return result.transform.DOMove(transform.position, delay)
-                                         .WaitForCompletion();
+            GarbageObject garbageObject = Player.Instance.OnWastebasket(garbageType);
+            yield return garbageObject.OnWastebasket(garbageArrivedPoint.position,
+                                                     addedYValue,
+                                                     delay)
+                                    .WaitForCompletion();
+
         }
     }
 }
