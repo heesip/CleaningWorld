@@ -15,6 +15,7 @@ public class PrefabResourcesInfoSO : ScriptableObject
     [SerializeField] GarbageObject paperPrefab2;
     [SerializeField] GarbageObject plasticPrefab1;
     [SerializeField] GarbageObject plasticPrefab2;
+    [SerializeField] Coin coinPrefab;
 
     public GarbageObject GetGarbageObjectPrefab(GarbageDetailType garbageType)
     {
@@ -44,5 +45,10 @@ public class PrefabResourcesInfoSO : ScriptableObject
                 Debug.Log($"PrefabeResourcesInfoSO : 이게 호출되면 안됨!, garbageType = {garbageType}");
                 return null;
         }
+    }
+
+    public Coin GetCoinPrefab()
+    {
+        return coinPrefab;
     }
 }

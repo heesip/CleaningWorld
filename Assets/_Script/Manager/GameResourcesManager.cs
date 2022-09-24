@@ -21,5 +21,9 @@ public class GameResourcesManager : Singleton<GameResourcesManager>
         return gameResourcesSystem.GetIcon(icontype);
     }
 
+    public Coin GetCoinObjectPrefab()
+    {
+        return gameResourcesSystem.GetCoinObjectPrefab();
+    }
 
 }

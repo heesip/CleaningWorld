@@ -25,4 +25,9 @@ public class GameResourcesSystem
     {
         return imageResourcesInfoSO.GetIcon(icontype);
     }
+
+    public Coin GetCoinObjectPrefab()
+    {
+        return prefabResourcesInfoSO.GetCoinPrefab();
+    }
 }

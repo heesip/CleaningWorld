@@ -16,4 +16,9 @@ public class FactoryManager : Singleton<FactoryManager>
     {
         return prefabFactorySystem.GetGarbageObject(garbageDetailType, spawnPoint);
     }
+
+    public Coin GetCoin(Vector3 spawnPosition)
+    {
+        return prefabFactorySystem.GetCoin(spawnPosition);
+    }
 }

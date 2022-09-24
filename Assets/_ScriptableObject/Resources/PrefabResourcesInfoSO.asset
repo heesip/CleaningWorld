@@ -22,3 +22,4 @@ MonoBehaviour:
   paperPrefab2: {fileID: 1192954393580050897, guid: 1338955b0e6ec3f49b1ccdb704bfdab1, type: 3}
   plasticPrefab1: {fileID: 8522243922694153401, guid: b07c9e47d93fddc499ea2212d4cf63da, type: 3}
   plasticPrefab2: {fileID: -7118952658411100406, guid: 6dd2be2c7b430e84eb7cdc81478b865f, type: 3}
+  coinPrefab: {fileID: 3625360207769027234, guid: 65fb4682d45a92c429368e91cf10d2d3, type: 3}
