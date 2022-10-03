@@ -38,4 +38,5 @@ public class Player : Singleton<Player>
     {
         playerGarbageStackSystem.OnGarbageHeap(garbageObject, delay);
     }
+
 }
