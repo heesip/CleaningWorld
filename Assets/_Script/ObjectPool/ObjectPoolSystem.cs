@@ -11,7 +11,7 @@ public class ObjectPoolSystem
     RecycleObject tempObject;
     List<RecycleObject> objectPool = new List<RecycleObject>();
     Transform parent;
-
+    Quaternion originalRotate;
     int defaultPoolSize;
 
     public ObjectPoolSystem(RecycleObject recycleObjectPrefab, int defaultPoolSize, Transform parent)
@@ -24,6 +24,7 @@ public class ObjectPoolSystem
         this.recycleObjectPrefab = recycleObjectPrefab;
         this.defaultPoolSize = defaultPoolSize;
         this.parent = parent;
+        originalRotate = recycleObjectPrefab.transform.localRotation;
     }
 
     void CreateObject()
@@ -56,6 +57,7 @@ public class ObjectPoolSystem
 
         recycleObject.gameObject.SetActive(false);
         recycleObject.transform.localScale = Vector3.one;
+        recycleObject.transform.localRotation = originalRotate;
         recycleObject.transform.SetParent(parent);
         objectPool.Add(recycleObject);
     }
