@@ -16,6 +16,7 @@ public class PlayerGarbageStackSystem
     GarbageStack<GarbageObject> myGarbages = new GarbageStack<GarbageObject>();
 
     [SerializeField] Transform pivotCenter;
+    [SerializeField] int upgradeValue = 10;
     [SerializeField] int maxCount = 20;
     [SerializeField] float garbageGapUp = 0.5f;
     [SerializeField] float garbageGapBack = 0.75f;
@@ -41,6 +42,11 @@ public class PlayerGarbageStackSystem
         return Vector3.zero
             + ((index % orderCount) * garbageGapUp * Vector3.up)
             + ((index / orderCount) * garbageGapBack * Vector3.back);
+    }
+
+    public void OnUpgrade()
+    {
+        maxCount += upgradeValue;
     }
 
     GarbageCountInfo GetGarbageCountInfo(GarbageType garbageType)
@@ -106,7 +112,7 @@ public class PlayerGarbageStackSystem
         {
             result.garbageObject.transform.SetParent(null);
             DecreaseCount(garbageType);
-        }   
+        }
         return result.garbageObject;
     }
 }

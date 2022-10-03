@@ -29,6 +29,13 @@ public class Player : Singleton<Player>
         return playerGarbageStackSystem.OnWastebasket(garbageType);
     }
 
+    public void OnUpgrade(int price)
+    {
+        if (coinSystem.IsSubable(price) == false) return;
+        coinSystem.SubCoin(price);
+        playerGarbageStackSystem.OnUpgrade();
+    }
+
     public bool IsAbleToPopGarbage(GarbageType garbageType)
     {
         return playerGarbageStackSystem.IsAbleToPopGarbage(garbageType);

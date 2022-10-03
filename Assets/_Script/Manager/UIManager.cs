@@ -19,4 +19,13 @@ public class UIManager : Singleton<UIManager>
     {
         CoinUI.Instance.UpdateAmount(value);        
     }
+
+    public void ShowUpgradeUI()
+    {
+        UpgradeUI.Instance.Show();
+    }
+    public void CloseUpgradeUI()
+    {
+        UpgradeUI.Instance.Close();
+    }
 }
