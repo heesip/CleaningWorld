@@ -12,6 +12,7 @@ public class Player : Singleton<Player>
     {
         playerMoveSystem.Initialize(this);
         playerGarbageStackSystem.Initialize(this);
+        coinSystem.Initialize();
     }
 
     private void FixedUpdate()

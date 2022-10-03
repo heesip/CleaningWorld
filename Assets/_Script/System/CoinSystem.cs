@@ -6,7 +6,27 @@ using UnityEngine;
 [System.Serializable]
 public class CoinSystem
 {
-    public int coin;
+    static readonly string LOAD_KEY = "CoinAmout";
+    int coin;
+
+    public void Initialize()
+    {
+        LoadData();
+    }
+
+    private void LoadData()
+    {
+        if (PlayerPrefs.HasKey(LOAD_KEY))
+        {
+            coin = PlayerPrefs.GetInt(LOAD_KEY, 0);
+        }
+
+        UIManager.Instance.UpdateCoinAmount(coin);
+    }
+    private void SaveData()
+    {
+        PlayerPrefs.SetInt(LOAD_KEY, coin);
+    }
 
     public void AddCoin(int value)
     {
@@ -33,8 +53,9 @@ public class CoinSystem
     {
         coin += value;
         UIManager.Instance.UpdateCoinAmount(coin);
+        SaveData()  ;
     }
-
+   
     public bool IsSubable(int value)
     {
         return coin >= value;
