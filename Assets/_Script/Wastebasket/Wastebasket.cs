@@ -55,7 +55,8 @@ public class Wastebasket : MonoBehaviour
                                                      addedYValue,
                                                      delay)
                                     .WaitForCompletion();
-
+            var newCoin = FactoryManager.Instance.GetCoin(garbageArrivedPoint.position);
+            newCoin.FlyToPlayer();
         }
     }
 }
