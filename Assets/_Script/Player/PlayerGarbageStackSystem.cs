@@ -79,6 +79,7 @@ public class PlayerGarbageStackSystem
         UpdateCount(garbageType, -1);
     }
 
+
     public bool IsAbleToGetGarbage()
     {
         return myGarbages.Count() < maxCount;

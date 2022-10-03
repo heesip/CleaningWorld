@@ -14,4 +14,9 @@ public class UIManager : Singleton<UIManager>
     {
         GarbageUI.Instance.UpdateAmount(garbageType, value);
     }
+
+    public void UpdateCoinAmount(int value)
+    {
+        CoinUI.Instance.UpdateAmount(value);        
+    }
 }
