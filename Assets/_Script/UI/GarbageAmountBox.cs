@@ -14,7 +14,14 @@ public class GarbageAmountBox : MonoBehaviour
                             (count, nameof(count)));
         Disappear();
     }
-    void Appear()
+
+    public void UpdateAmount(int amount)
+    {
+        OnUpdateAmount(amount);
+
+        count.text = $"x{amount}";
+    }
+    private void Appear()
     {
         canvasGroup.alpha = 1;
     }
@@ -22,13 +29,6 @@ public class GarbageAmountBox : MonoBehaviour
     private void Disappear()
     {
         canvasGroup.alpha = 0;
-    }
-
-    public void UpdateAmount(int amount)
-    {
-        OnUpdateAmount(amount);
-
-        count.text = $"x{amount}";
     }
 
     private void OnUpdateAmount(int amount)

@@ -13,6 +13,7 @@ public class UpgradeUI : Singleton<UpgradeUI>
 
     private void Awake()
     {
+        Close();
         WoonyMethods.Assert(this,
                             (bgButton, nameof(bgButton)),
                             (upgradeButton, nameof(upgradeButton)),

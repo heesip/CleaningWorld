@@ -15,10 +15,14 @@ public class GarbageHeap : MonoBehaviour
     int originGarbageCount;
     Vector3 originScale;
 
+    [SerializeField] string GARBAGE_LOAD_KEY = null;
+    //string TESTKEY = "A";
+
     void Start()
     {
+        //PlayerPrefs.DeleteAll();
         WoonyMethods.Assert(this, (garbageHeapPlayerDetector, nameof(garbageHeapPlayerDetector)),
-                                  (garbageAmountBox, nameof(garbageAmountBox)), 
+                                  (garbageAmountBox, nameof(garbageAmountBox)),
                                   (inner, nameof(inner)));
 
         var garbageDetailTypes = Enum.GetNames(typeof(GarbageDetailType));
@@ -26,10 +30,31 @@ public class GarbageHeap : MonoBehaviour
 
         garbageHeapPlayerDetector.Initialize(OnPlayerEnter, OnPlayerExit);
         garbageAmountBox.Initialize();
-        garbageAmountBox.UpdateAmount(garbageCount);
+        LoadData();
+        //garbageAmountBox.UpdateAmount(garbageCount);
 
         originGarbageCount = garbageCount;
         originScale = inner.localScale;
+    }
+
+    //void KeySave()
+    //{
+    //    PlayerPrefs.SetString(TESTKEY, GARBAGE_LOAD_KEY);
+    //}
+
+    void SaveData()
+    {
+        PlayerPrefs.SetInt(GARBAGE_LOAD_KEY, garbageCount);
+    }
+
+    void LoadData()
+    {
+        if (PlayerPrefs.HasKey(GARBAGE_LOAD_KEY))
+        {
+            garbageCount = PlayerPrefs.GetInt(GARBAGE_LOAD_KEY, garbageCount);
+        }
+        garbageAmountBox.UpdateAmount(garbageCount);
+
     }
 
     void SubGarbageCount(int value)
@@ -37,6 +62,7 @@ public class GarbageHeap : MonoBehaviour
         value = Math.Abs(value);
         garbageCount -= value;
         garbageAmountBox.UpdateAmount(garbageCount);
+        SaveData();
     }
 
     void OnPlayerEnter()
