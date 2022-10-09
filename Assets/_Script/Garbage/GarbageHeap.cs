@@ -10,17 +10,19 @@ public class GarbageHeap : MonoBehaviour
     [SerializeField] GarbageHeapPlayerDetector garbageHeapPlayerDetector;
     [SerializeField] GarbageAmountBox garbageAmountBox;
     [SerializeField] float delay = 0.1f;
-    [SerializeField] int garbageCount = 100;
+    [SerializeField] int garbageCount;
+    [SerializeField] int initializeGarbageCount = 100;
     [SerializeField] Transform inner;
     int originGarbageCount;
     Vector3 originScale;
 
-    [SerializeField] string GARBAGE_LOAD_KEY = null;
-    //string TESTKEY = "A";
+    static readonly string BaseKEY = "GarbageAmount";
+    [SerializeField] int uid;
+    static string REAL_KEY;
 
     void Start()
     {
-        //PlayerPrefs.DeleteAll();
+        REAL_KEY = BaseKEY + uid.ToString();
         WoonyMethods.Assert(this, (garbageHeapPlayerDetector, nameof(garbageHeapPlayerDetector)),
                                   (garbageAmountBox, nameof(garbageAmountBox)),
                                   (inner, nameof(inner)));
@@ -30,30 +32,25 @@ public class GarbageHeap : MonoBehaviour
 
         garbageHeapPlayerDetector.Initialize(OnPlayerEnter, OnPlayerExit);
         garbageAmountBox.Initialize();
-        LoadData();
-        //garbageAmountBox.UpdateAmount(garbageCount);
 
-        originGarbageCount = garbageCount;
+        originGarbageCount = initializeGarbageCount;
         originScale = inner.localScale;
+        LoadData();
     }
-
-    //void KeySave()
-    //{
-    //    PlayerPrefs.SetString(TESTKEY, GARBAGE_LOAD_KEY);
-    //}
 
     void SaveData()
     {
-        PlayerPrefs.SetInt(GARBAGE_LOAD_KEY, garbageCount);
+        PlayerPrefs.SetInt(REAL_KEY, garbageCount);
     }
 
     void LoadData()
     {
-        if (PlayerPrefs.HasKey(GARBAGE_LOAD_KEY))
+        if (PlayerPrefs.HasKey(REAL_KEY))
         {
-            garbageCount = PlayerPrefs.GetInt(GARBAGE_LOAD_KEY, garbageCount);
+            garbageCount = PlayerPrefs.GetInt(REAL_KEY, garbageCount);
         }
         garbageAmountBox.UpdateAmount(garbageCount);
+        HeapScaleUpdate();
 
     }
 
@@ -123,8 +120,15 @@ public class GarbageHeap : MonoBehaviour
         void OnGenerateGarbage()
         {
             SubGarbageCount(1);
-            inner.localScale = garbageCount / (float)originGarbageCount * originScale;
+            HeapScaleUpdate();
         }
     }
+
+    void HeapScaleUpdate()
+    {
+        inner.localScale = garbageCount / (float)originGarbageCount * originScale;
+    }
+
+
 }
 
