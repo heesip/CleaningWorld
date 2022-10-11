@@ -24,17 +24,41 @@ public class PlayerGarbageStackSystem
 
     Dictionary<GarbageType, GarbageCountInfo> garbageCountInfoMap = new Dictionary<GarbageType, GarbageCountInfo>();
 
-    int canCount;
-    int foodCount;
-    int glassCount;
-    int paperCount;
-    int plasticCount;
+    int canAmount;
+    int foodAmount;
+    int glassAmount;
+    int paperAmount;
+    int plasticAmount;
+
+    static readonly string CAN_KEY = "CanAmount";
+    static readonly string FOOD_KEY = "FoodAmount;";
+    static readonly string GLASS_KEY = "GlassAmount;";
+    static readonly string PAPER_KEY = "PaperAmount;";
+    static readonly string PLASTIC_KEY = "PlasticAmount;";
 
     public void Initialize(Player player)
     {
         this.player = player;
         Debug.Assert(pivotCenter != null, "pivotCenter is null");
         myGarbages.Initialize(GetPosition);
+        LoadData(CAN_KEY, ref canAmount);
+        LoadData(FOOD_KEY, ref foodAmount);
+        LoadData(GLASS_KEY, ref glassAmount);
+        LoadData(PAPER_KEY, ref paperAmount);
+        LoadData(PLASTIC_KEY, ref plasticAmount);
+    }
+
+    void LoadData(string key, ref int amount)
+    {
+        if (PlayerPrefs.HasKey(key))
+        {
+            amount = PlayerPrefs.GetInt(key, 0);
+        }
+
+    }
+    void SaveData(string key, int amount)
+    {
+        PlayerPrefs.SetInt(key, amount);
     }
 
     Vector3 GetPosition(int index)
@@ -73,6 +97,28 @@ public class PlayerGarbageStackSystem
         var garbageInfo = GetGarbageCountInfo(garbageType);
         garbageInfo.count += changeValue;
         UIManager.Instance.UpdateGarbageAmount(garbageType, garbageInfo.count);
+
+        switch (garbageType)
+        {
+            case GarbageType.Can:
+                SaveData(CAN_KEY, garbageInfo.count);
+                break;
+            case GarbageType.Food:
+                SaveData(FOOD_KEY, garbageInfo.count);
+                break;
+            case GarbageType.Glass:
+                SaveData(GLASS_KEY, garbageInfo.count);
+                break;
+            case GarbageType.Paper:
+                SaveData(PAPER_KEY, garbageInfo.count);
+                break;
+            case GarbageType.Plastic:
+                SaveData(PLASTIC_KEY, garbageInfo.count);
+                break;
+            default:
+                Debug.Log("알수없는 쓰레기가 저장되었습니다.");
+                break;
+        }
     }
 
     void IncreaseCount(GarbageType garbageType)

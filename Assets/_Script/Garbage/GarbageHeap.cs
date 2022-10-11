@@ -16,9 +16,9 @@ public class GarbageHeap : MonoBehaviour
     int originGarbageCount;
     Vector3 originScale;
 
-    static readonly string BaseKEY = "GarbageAmount";
+    string BaseKEY = "GarbageAmount";
     [SerializeField] int uid;
-    static string REAL_KEY;
+    string REAL_KEY;
 
     void Start()
     {

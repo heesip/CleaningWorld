@@ -53,7 +53,7 @@ public class CoinSystem
     {
         coin += value;
         UIManager.Instance.UpdateCoinAmount(coin);
-        SaveData()  ;
+        SaveData();
     }
    
     public bool IsSubable(int value)
