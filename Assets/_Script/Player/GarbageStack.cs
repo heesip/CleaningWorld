@@ -3,25 +3,89 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 class GarbageStack<T> where T : GarbageObject
 {
     readonly List<T> container = new List<T>();
+    StringBuilder stringBuilder;
     T tempItem;
+    //containerMap은 각 쓰레기별 카운트를 저장하기 위해 사용되는 딕셔너리
     Dictionary<GarbageType, int> containerMap = new Dictionary<GarbageType, int>();
+
+    public void Initialize(string key, Func<int, Vector3> getPosition, Transform pivotCenter)
+    {
+        this.getPosition = getPosition;
+        LoadGarbages(key, pivotCenter);
+    }
+
+    public void LoadGarbages(string key, Transform pivotCenter)
+    {
+        if (PlayerPrefs.HasKey(key))
+        {
+            var result = PlayerPrefs.GetString(key);
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                var garbageType = (GarbageType)Convert.ToInt32(result[i].ToString());
+                var garbageObject = GenerateGarbage(garbageType);
+                garbageObject.transform.SetParent(pivotCenter);
+                garbageObject.transform.localRotation = Quaternion.identity;
+
+                Push((T)garbageObject, delay: 0);
+            }
+        }
+    }
+
+    GarbageObject GenerateGarbage(GarbageType garbageType)
+    {
+        GarbageDetailType randomType = GarbageDetailType.None;
+        switch (garbageType)
+        {
+            case GarbageType.Can:
+                randomType = GarbageDetailType.Can1;
+                break;
+            case GarbageType.Food:
+                randomType = GarbageDetailType.Food1;
+                break;
+            case GarbageType.Glass:
+                randomType = GarbageDetailType.Glass1;
+                break;
+            case GarbageType.Paper:
+                randomType = GarbageDetailType.Paper1;
+                break;
+            case GarbageType.Plastic:
+                randomType = GarbageDetailType.Plastic1;
+                break;
+        }
+        randomType += Random.Range(0, 2);
+        return FactoryManager.Instance.GetGarbageObject(randomType, Vector3.zero);
+    }
+
+    public void SaveGarbage(string key)
+    {
+        if (stringBuilder == null)
+        {
+            stringBuilder = new StringBuilder();
+        }
+
+        stringBuilder.Clear();
+        foreach(var item in container)
+        {
+            stringBuilder.Append((int)item.GarbageType);
+        }
+
+        PlayerPrefs.SetString(key, stringBuilder.ToString());
+    }
+
+    Func<int, Vector3> getPosition;
 
     public int Count()
     {
         return container.Count;
     }
-    public void Initialize(Func<int, Vector3> getPosition)
-    {
-        this.getPosition = getPosition;
-    }
-
-    Func<int, Vector3> getPosition;
-
     public void Push(T garbageObject, float delay)
     {
         SortPosition();

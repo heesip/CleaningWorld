@@ -17,40 +17,18 @@ public class PlayerGarbageStackSystem
     [SerializeField] float garbageGapBack = 0.75f;
     [SerializeField] int orderCount = 3;
 
-    int canAmount;
-    int foodAmount;
-    int glassAmount;
-    int paperAmount;
-    int plasticAmount;
-
-    static readonly string CAN_KEY = "CanAmount";
-    static readonly string FOOD_KEY = "FoodAmount";
-    static readonly string GLASS_KEY = "GlassAmount";
-    static readonly string PAPER_KEY = "PaperAmount";
-    static readonly string PLASTIC_KEY = "PlasticAmount";
+    string KEY = "PlayerGarbages";
 
     public void Initialize(Player player)
     {
         this.player = player;
         Debug.Assert(pivotCenter != null, "pivotCenter is null");
-        myGarbages.Initialize(GetPosition);
-        //LoadData(CAN_KEY, ref canAmount);
-        //LoadData(FOOD_KEY, ref foodAmount);
-        //LoadData(GLASS_KEY, ref glassAmount);
-        //LoadData(PAPER_KEY, ref paperAmount);
-        //LoadData(PLASTIC_KEY, ref plasticAmount);
-    }
-
-    void LoadData(string key, ref int amount)
-    {
-        if (PlayerPrefs.HasKey(key))
+        myGarbages.Initialize(KEY, GetPosition, pivotCenter);
+        for (int i = 1; i < Enum.GetNames(typeof(GarbageType)).Length; i++)
         {
-            amount = PlayerPrefs.GetInt(key, 0);
+            UIManager.Instance.UpdateGarbageAmount((GarbageType)i,
+                                                   myGarbages.GetCountOfGarbageType((GarbageType)i));
         }
-    }
-    void SaveData(string key, int amount)
-    {
-        PlayerPrefs.SetInt(key, amount);
     }
 
     Vector3 GetPosition(int index)
@@ -68,30 +46,8 @@ public class PlayerGarbageStackSystem
 
     void UpdateCount(GarbageType garbageType)
     {
-       
+        myGarbages.SaveGarbage(KEY);
         UIManager.Instance.UpdateGarbageAmount(garbageType, myGarbages.GetCountOfGarbageType(garbageType));
-
-        //switch (garbageType)
-        //{
-        //    case GarbageType.Can:
-        //        SaveData(CAN_KEY, garbageInfo.count);
-        //        break;
-        //    case GarbageType.Food:
-        //        SaveData(FOOD_KEY, garbageInfo.count);
-        //        break;
-        //    case GarbageType.Glass:
-        //        SaveData(GLASS_KEY, garbageInfo.count);
-        //        break;
-        //    case GarbageType.Paper:
-        //        SaveData(PAPER_KEY, garbageInfo.count);
-        //        break;
-        //    case GarbageType.Plastic:
-        //        SaveData(PLASTIC_KEY, garbageInfo.count);
-        //        break;
-        //    default:
-        //        Debug.Log("알수없는 쓰레기가 저장되었습니다.");
-        //        break;
-        //}
     }
 
     public bool IsAbleToGetGarbage()

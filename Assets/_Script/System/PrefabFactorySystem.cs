@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,18 +54,24 @@ public class PrefabFactorySystem
     {
         return garbageType switch
         {
-            GarbageDetailType.Can1 => can1ObjectPool,
-            GarbageDetailType.Can2 => can2ObjectPool,
-            GarbageDetailType.Food1 => food1ObjectPool,
-            GarbageDetailType.Food2 => food2ObjectPool,
-            GarbageDetailType.Glass1 => glass1ObjectPool,
-            GarbageDetailType.Glass2 => glass2ObjectPool,
-            GarbageDetailType.Paper1 => paper1ObjectPool,
-            GarbageDetailType.Paper2 => paper2ObjectPool,
-            GarbageDetailType.Plastic1 => plastic1ObjectPool,
-            GarbageDetailType.Plastic2 => plastic2ObjectPool,
-            _ => null,
+        GarbageDetailType.Can1 => can1ObjectPool,
+        GarbageDetailType.Can2 => can2ObjectPool,
+        GarbageDetailType.Food1 => food1ObjectPool,
+        GarbageDetailType.Food2 => food2ObjectPool,
+        GarbageDetailType.Glass1 => glass1ObjectPool,
+        GarbageDetailType.Glass2 => glass2ObjectPool,
+        GarbageDetailType.Paper1 => paper1ObjectPool,
+        GarbageDetailType.Paper2 => paper2ObjectPool,
+        GarbageDetailType.Plastic1 => plastic1ObjectPool,
+        GarbageDetailType.Plastic2 => plastic2ObjectPool,
+        _ => ReturnNull(garbageType),
         };
+    }
+
+    private ObjectPoolSystem ReturnNull(GarbageDetailType garbageType)
+    {
+        Debug.LogError($"존재하지 않는 타입{garbageType}");
+        return null;
     }
 
     public GarbageObject GetGarbageObject(GarbageDetailType garbageType, Vector3 spawnPoint)
