@@ -10,6 +10,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
+        DataBaseManager.Instance.Initialize();
         GameResourcesManager.Instance.Initialize();
         FactoryManager.Instance.Initialize();
         UIManager.Instance.Initialize();

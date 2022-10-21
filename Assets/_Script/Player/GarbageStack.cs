@@ -72,11 +72,12 @@ class GarbageStack<T> where T : GarbageObject
         }
 
         stringBuilder.Clear();
-        foreach(var item in container)
+        foreach (var item in container)
         {
             stringBuilder.Append((int)item.GarbageType);
         }
 
+        //saveLoadSystem.SaveData(key, stringBuilder.ToString());
         PlayerPrefs.SetString(key, stringBuilder.ToString());
     }
 
@@ -133,7 +134,7 @@ class GarbageStack<T> where T : GarbageObject
 
     public int GetCountOfGarbageType(GarbageType garbageType)
     {
-        if(containerMap.ContainsKey(garbageType) == false)
+        if (containerMap.ContainsKey(garbageType) == false)
         {
             containerMap[garbageType] = 0;
         }

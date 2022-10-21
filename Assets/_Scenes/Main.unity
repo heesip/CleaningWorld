@@ -1692,6 +1692,10 @@ PrefabInstance:
       propertyPath: GARBAGE_LOAD_KEY
       value: C
       objectReference: {fileID: 0}
+    - target: {fileID: 5552914599253579621, guid: cea113bcf0b7e09488148e603ac0d561, type: 3}
+      propertyPath: initializeGarbageCount
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8026823333592638732, guid: cea113bcf0b7e09488148e603ac0d561, type: 3}
       propertyPath: m_Layer
       value: 6

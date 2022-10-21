@@ -10,19 +10,22 @@ public class GarbageHeap : MonoBehaviour
     [SerializeField] GarbageHeapPlayerDetector garbageHeapPlayerDetector;
     [SerializeField] GarbageAmountBox garbageAmountBox;
     [SerializeField] float delay = 0.1f;
-    [SerializeField] int garbageCount;
+    int garbageCount;
     [SerializeField] int initializeGarbageCount = 100;
     [SerializeField] Transform inner;
     int originGarbageCount;
     Vector3 originScale;
 
-    string BaseKEY = "GarbageAmount";
+    string BASE_KEY;
     [SerializeField] int uid;
-    string REAL_KEY;
-
+    string REAL_KEY()
+    {
+        BASE_KEY = DataBaseManager.Instance.BASE_KEY();
+        return BASE_KEY + uid.ToString();
+    }
+        
     void Start()
     {
-        REAL_KEY = BaseKEY + uid.ToString();
         WoonyMethods.Assert(this, (garbageHeapPlayerDetector, nameof(garbageHeapPlayerDetector)),
                                   (garbageAmountBox, nameof(garbageAmountBox)),
                                   (inner, nameof(inner)));
@@ -35,23 +38,9 @@ public class GarbageHeap : MonoBehaviour
 
         originGarbageCount = initializeGarbageCount;
         originScale = inner.localScale;
-        LoadData();
-    }
-
-    void SaveData()
-    {
-        PlayerPrefs.SetInt(REAL_KEY, garbageCount);
-    }
-
-    void LoadData()
-    {
-        if (PlayerPrefs.HasKey(REAL_KEY))
-        {
-            garbageCount = PlayerPrefs.GetInt(REAL_KEY, garbageCount);
-        }
+        DataBaseManager.Instance.GetGarbageHeapData(REAL_KEY(), ref garbageCount, initializeGarbageCount);
         garbageAmountBox.UpdateAmount(garbageCount);
         HeapScaleUpdate();
-
     }
 
     void SubGarbageCount(int value)
@@ -59,13 +48,17 @@ public class GarbageHeap : MonoBehaviour
         value = Math.Abs(value);
         garbageCount -= value;
         garbageAmountBox.UpdateAmount(garbageCount);
-        SaveData();
+        DataBaseManager.Instance.SetGarbageHeapData(REAL_KEY(), garbageCount);
     }
 
     void OnPlayerEnter()
     {
         StopGenerateGabageCo();
         generateGarbageCoHandle = StartCoroutine(GenerateGarbageCo());
+    }
+    void OnPlayerExit()
+    {
+        StopGenerateGabageCo();
     }
 
     void StopGenerateGabageCo()
@@ -74,11 +67,6 @@ public class GarbageHeap : MonoBehaviour
         {
             StopCoroutine(generateGarbageCoHandle);
         }
-    }
-
-    void OnPlayerExit()
-    {
-        StopGenerateGabageCo();
     }
 
     Coroutine generateGarbageCoHandle;

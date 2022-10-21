@@ -17,13 +17,13 @@ public class PlayerGarbageStackSystem
     [SerializeField] float garbageGapBack = 0.75f;
     [SerializeField] int orderCount = 3;
 
-    string KEY = "PlayerGarbages";
+    string GARBAGES_KEY = "PlayerGarbages";
 
     public void Initialize(Player player)
     {
         this.player = player;
         Debug.Assert(pivotCenter != null, "pivotCenter is null");
-        myGarbages.Initialize(KEY, GetPosition, pivotCenter);
+        myGarbages.Initialize(GARBAGES_KEY, GetPosition, pivotCenter);
         for (int i = 1; i < Enum.GetNames(typeof(GarbageType)).Length; i++)
         {
             UIManager.Instance.UpdateGarbageAmount((GarbageType)i,
@@ -43,11 +43,11 @@ public class PlayerGarbageStackSystem
         maxCount += upgradeValue;
     }
 
-
     void UpdateCount(GarbageType garbageType)
     {
-        myGarbages.SaveGarbage(KEY);
-        UIManager.Instance.UpdateGarbageAmount(garbageType, myGarbages.GetCountOfGarbageType(garbageType));
+        myGarbages.SaveGarbage(GARBAGES_KEY);
+        UIManager.Instance.UpdateGarbageAmount(garbageType,
+                                               myGarbages.GetCountOfGarbageType(garbageType));
     }
 
     public bool IsAbleToGetGarbage()
