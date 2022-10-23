@@ -18,14 +18,11 @@ public class GarbageHeap : MonoBehaviour
 
     string BASE_KEY;
     [SerializeField] int uid;
-    string REAL_KEY()
-    {
-        BASE_KEY = DataBaseManager.Instance.BASE_KEY();
-        return BASE_KEY + uid.ToString();
-    }
+    string REAL_KEY;
         
     void Start()
     {
+        REAL_KEY = GetRealKey();
         WoonyMethods.Assert(this, (garbageHeapPlayerDetector, nameof(garbageHeapPlayerDetector)),
                                   (garbageAmountBox, nameof(garbageAmountBox)),
                                   (inner, nameof(inner)));
@@ -38,9 +35,15 @@ public class GarbageHeap : MonoBehaviour
 
         originGarbageCount = initializeGarbageCount;
         originScale = inner.localScale;
-        DataBaseManager.Instance.GetGarbageHeapData(REAL_KEY(), ref garbageCount, initializeGarbageCount);
+        DataBaseManager.Instance.GetGarbageHeapData(REAL_KEY, ref garbageCount, initializeGarbageCount);
         garbageAmountBox.UpdateAmount(garbageCount);
         HeapScaleUpdate();
+    }
+    
+    string GetRealKey()
+    {
+        BASE_KEY = DataBaseManager.Instance.GarbageHeapBaseKey();
+        return BASE_KEY + uid.ToString();
     }
 
     void SubGarbageCount(int value)
@@ -48,7 +51,7 @@ public class GarbageHeap : MonoBehaviour
         value = Math.Abs(value);
         garbageCount -= value;
         garbageAmountBox.UpdateAmount(garbageCount);
-        DataBaseManager.Instance.SetGarbageHeapData(REAL_KEY(), garbageCount);
+        DataBaseManager.Instance.SetGarbageHeapData(REAL_KEY, garbageCount);
     }
 
     void OnPlayerEnter()

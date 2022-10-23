@@ -21,9 +21,9 @@ public class DataBaseManager : Singleton<DataBaseManager>
         dataBaseSystem.SetCoinData(coin);
     }
 
-    public string BASE_KEY()
+    public string GarbageHeapBaseKey()
     {
-        return dataBaseSystem.BASE_KEY();
+        return dataBaseSystem.GarbageHeapBaseKey();
     }
     public void GetGarbageHeapData(string key, ref int garbageCount, int initializeGarbageCount)
     {
@@ -35,4 +35,13 @@ public class DataBaseManager : Singleton<DataBaseManager>
         dataBaseSystem.SetGarbageHeapData(key, garbageCount);
     }
 
+    public string GetData(string key)
+    {
+        return dataBaseSystem.GetData(key);
+    }
+
+    public void SetData(string key, string value)
+    {
+        dataBaseSystem.SetData(key, value);
+    }
 }

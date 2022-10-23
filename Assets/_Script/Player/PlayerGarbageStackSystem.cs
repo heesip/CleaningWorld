@@ -45,7 +45,7 @@ public class PlayerGarbageStackSystem
 
     void UpdateCount(GarbageType garbageType)
     {
-        myGarbages.SaveGarbage(GARBAGES_KEY);
+        myGarbages.SaveGarbage();
         UIManager.Instance.UpdateGarbageAmount(garbageType,
                                                myGarbages.GetCountOfGarbageType(garbageType));
     }

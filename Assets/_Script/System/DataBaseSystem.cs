@@ -7,8 +7,13 @@ public class DataBaseSystem
 {
     static readonly string COIN_KEY = "CoinAmount";
     static readonly string HEAP_BASE_KEY = "GarbageAmount";
+
+    StringBuilder stringBuilder;
+    static readonly string GARBAGES_KEY = "PlayerGarbages";
+
     public void Initialize()
     {
+
     }
 
     public void GetCoinData(ref int value)
@@ -24,7 +29,7 @@ public class DataBaseSystem
         PlayerPrefs.SetInt(COIN_KEY, intValue);
     }
 
-    public string BASE_KEY()
+    public string GarbageHeapBaseKey()
     {
         return HEAP_BASE_KEY;
     }
@@ -37,6 +42,20 @@ public class DataBaseSystem
     public void SetGarbageHeapData(string key, int garbageCount)
     {
         PlayerPrefs.SetInt(key, garbageCount);
+    }
+
+    public string GetData(string key)
+    {
+        if (PlayerPrefs.HasKey(key))
+        {
+            return PlayerPrefs.GetString(key);
+        }
+        return key;
+    }
+
+    public void SetData(string key, string value)
+    {
+        PlayerPrefs.SetString(key, value);
     }
 
 }

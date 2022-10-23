@@ -7,10 +7,51 @@ using System.Text;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+class SaveSystem
+{
+    string KEY;
+    Action<GarbageType> onLoadGarbage;
+    StringBuilder stringBuilder;
+
+    public SaveSystem(string KEY, Action<GarbageType> onLoadGarbage)
+    {
+        this.KEY = KEY;
+        this.onLoadGarbage = onLoadGarbage;
+    }
+
+    public void ConvertToGarvageType()
+    {
+        var stringData = DataBaseManager.Instance.GetData(KEY);
+        for (int i = 0; i < stringData.Length; i++)
+        {
+            var newGarbageType = (GarbageType)Convert.ToInt32(stringData[i].ToString());
+            onLoadGarbage?.Invoke(newGarbageType);
+        }
+    }
+
+    public void ConvertToString<T>(List<T> container) where T : GarbageObject
+    {
+        if (stringBuilder == null)
+        {
+            stringBuilder = new StringBuilder();
+        }
+
+        stringBuilder.Clear();
+        foreach (var item in container)
+        {
+            stringBuilder.Append((int)item.GarbageType);
+        }
+
+        DataBaseManager.Instance.SetData(KEY, stringBuilder.ToString());
+    }
+}
+
 class GarbageStack<T> where T : GarbageObject
 {
+    SaveSystem saveSystem;
+    Transform pivotCenter;
     readonly List<T> container = new List<T>();
-    StringBuilder stringBuilder;
+    Func<int, Vector3> getPosition;
     T tempItem;
     //containerMap은 각 쓰레기별 카운트를 저장하기 위해 사용되는 딕셔너리
     Dictionary<GarbageType, int> containerMap = new Dictionary<GarbageType, int>();
@@ -18,25 +59,18 @@ class GarbageStack<T> where T : GarbageObject
     public void Initialize(string key, Func<int, Vector3> getPosition, Transform pivotCenter)
     {
         this.getPosition = getPosition;
-        LoadGarbages(key, pivotCenter);
+        this.pivotCenter = pivotCenter;
+        saveSystem = new SaveSystem(key, OnLoadGarbage);
+        LoadGarbages();
     }
 
-    public void LoadGarbages(string key, Transform pivotCenter)
+    void OnLoadGarbage(GarbageType garbageType)
     {
-        if (PlayerPrefs.HasKey(key))
-        {
-            var result = PlayerPrefs.GetString(key);
+        var garbageObject = GenerateGarbage(garbageType);
+        garbageObject.transform.SetParent(pivotCenter);
+        garbageObject.transform.localRotation = Quaternion.identity;
 
-            for (int i = 0; i < result.Length; i++)
-            {
-                var garbageType = (GarbageType)Convert.ToInt32(result[i].ToString());
-                var garbageObject = GenerateGarbage(garbageType);
-                garbageObject.transform.SetParent(pivotCenter);
-                garbageObject.transform.localRotation = Quaternion.identity;
-
-                Push((T)garbageObject, delay: 0);
-            }
-        }
+        Push((T)garbageObject, delay: 0);
     }
 
     GarbageObject GenerateGarbage(GarbageType garbageType)
@@ -64,29 +98,22 @@ class GarbageStack<T> where T : GarbageObject
         return FactoryManager.Instance.GetGarbageObject(randomType, Vector3.zero);
     }
 
-    public void SaveGarbage(string key)
+    public void LoadGarbages()
     {
-        if (stringBuilder == null)
-        {
-            stringBuilder = new StringBuilder();
-        }
-
-        stringBuilder.Clear();
-        foreach (var item in container)
-        {
-            stringBuilder.Append((int)item.GarbageType);
-        }
-
-        //saveLoadSystem.SaveData(key, stringBuilder.ToString());
-        PlayerPrefs.SetString(key, stringBuilder.ToString());
+        saveSystem.ConvertToGarvageType();
     }
 
-    Func<int, Vector3> getPosition;
+    public void SaveGarbage()
+    {
+        saveSystem.ConvertToString(container);
+    }
+
 
     public int Count()
     {
         return container.Count;
     }
+
     public void Push(T garbageObject, float delay)
     {
         SortPosition();
