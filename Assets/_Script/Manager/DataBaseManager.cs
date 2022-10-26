@@ -3,45 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 public class DataBaseManager : Singleton<DataBaseManager>
 {
-    DataBaseSystem dataBaseSystem = new DataBaseSystem();
-
+    CoinDataBaseSysytem coinDataBaseSysytem = new CoinDataBaseSysytem();
+    GarbageHeapDataBaseSystem garbageHeapDataBaseSystem = new GarbageHeapDataBaseSystem();
+    PlayerGarbagesDataBaseSystem playerGarbagesDataBaseSystem = new PlayerGarbagesDataBaseSystem();
 
     public void Initialize()
     {
-        dataBaseSystem.Initialize();
+        playerGarbagesDataBaseSystem.Initialize();
     }
 
     public void GetCoinData(ref int coin)
     {
-        dataBaseSystem.GetCoinData(ref coin);
+        coinDataBaseSysytem.GetCoinData(ref coin);
     }
 
     public void SetCoinData(int coin)
     {
-        dataBaseSystem.SetCoinData(coin);
+        coinDataBaseSysytem.SetCoinData(coin);
     }
 
     public string GarbageHeapBaseKey()
     {
-        return dataBaseSystem.GarbageHeapBaseKey();
+        return garbageHeapDataBaseSystem.GarbageHeapBaseKey();
     }
     public void GetGarbageHeapData(string key, ref int garbageCount, int initializeGarbageCount)
     {
-        dataBaseSystem.GetGarbageHeapData(key, ref garbageCount, initializeGarbageCount);
+        garbageHeapDataBaseSystem.GetGarbageHeapData(key, ref garbageCount, initializeGarbageCount);
     }
 
     public void SetGarbageHeapData(string key, int garbageCount)
     {
-        dataBaseSystem.SetGarbageHeapData(key, garbageCount);
+        garbageHeapDataBaseSystem.SetGarbageHeapData(key, garbageCount);
     }
 
     public string GetData(string key)
     {
-        return dataBaseSystem.GetData(key);
+        return playerGarbagesDataBaseSystem.GetData(key);
     }
 
     public void SetData(string key, string value)
     {
-        dataBaseSystem.SetData(key, value);
+        playerGarbagesDataBaseSystem.SetData(key, value);
     }
 }
